@@ -1,6 +1,6 @@
 {
   "name": "biome-plugin-react-compiler",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Biome linter plugins for React Compiler rules using GritQL",
   "type": "module",
   "main": "./src/index.js",
