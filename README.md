@@ -180,6 +180,7 @@ These rules use static pattern matching (GritQL) and **cannot** perform deep sem
 
 | Limitation | Impact |
 |------------|--------|
+| No `"use no memo"` support | Cannot exclude opted-out components/hooks |
 | No control flow analysis | Cannot exclude refs in effects/handlers |
 | No scope tracking | Cannot detect nested component definitions |
 | No data flow analysis | Cannot track variable mutations |
@@ -187,8 +188,22 @@ These rules use static pattern matching (GritQL) and **cannot** perform deep sem
 
 ### False Positives
 
+- Components/hooks with `"use no memo"` directive will still be flagged
 - `no-ref-access-in-render` will flag valid usage in effects and event handlers
 - Rules may not detect patterns with variable indirection (e.g., `const p = props; p.x = 1`)
+
+### Workaround for `"use no memo"`
+
+If you have components that use `"use no memo"`, exclude them via biome.json:
+
+```json
+{
+  "overrides": [{
+    "includes": ["**/opted-out-components/**"],
+    "plugins": []
+  }]
+}
+```
 
 ### Not Implemented
 
@@ -206,6 +221,7 @@ Due to GritQL limitations in Biome, these rules are not implementable:
 | Error Boundaries | ✅ Basic detection | ✅ Full analysis |
 | Ref access | ⚠️ High false positives | ✅ Full flow analysis |
 | Prop mutation | ✅ Direct patterns only | ✅ Full flow analysis |
+| `"use no memo"` | ❌ Not supported | ✅ Respected |
 | Nested components | ❌ Not possible | ✅ Full analysis |
 | setState in render | ❌ Not possible | ✅ Full analysis |
 | Performance | ✅ Very fast | ⚠️ Runs full compiler |
