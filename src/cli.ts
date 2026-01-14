@@ -98,7 +98,7 @@ function updateBiomeJson(rulesDir: string, rules: string[]) {
   const biomeJsonPath = join(process.cwd(), "biome.json");
   const biomejsoncPath = join(process.cwd(), "biome.jsonc");
 
-  let configPath = existsSync(biomeJsonPath) ? biomeJsonPath : existsSync(biomejsoncPath) ? biomejsoncPath : null;
+  const configPath = existsSync(biomeJsonPath) ? biomeJsonPath : existsSync(biomejsoncPath) ? biomejsoncPath : null;
 
   const pluginPaths = rules.map((rule) => `./${rulesDir}/${rule}`);
 
