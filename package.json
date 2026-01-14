@@ -1,14 +1,11 @@
 {
-  "name": "@insik-han/biome-plugin-react-compiler",
+  "name": "biome-plugin-react-compiler",
   "version": "0.1.0",
   "description": "Biome linter plugins for React Compiler rules using GritQL",
   "type": "module",
   "main": "./src/index.js",
   "bin": {
     "biome-plugin-react-compiler": "./src/cli.js"
-  },
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
     "test": "bun test",

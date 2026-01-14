@@ -1,7 +1,7 @@
 # biome-plugin-react-compiler
 
+[![npm version](https://badge.fury.io/js/biome-plugin-react-compiler.svg)](https://www.npmjs.com/package/biome-plugin-react-compiler)
 [![CI](https://github.com/Insik-Han/biome-plugin-react-compiler/actions/workflows/ci.yml/badge.svg)](https://github.com/Insik-Han/biome-plugin-react-compiler/actions/workflows/ci.yml)
-[![GitHub release](https://img.shields.io/github/v/release/Insik-Han/biome-plugin-react-compiler)](https://github.com/Insik-Han/biome-plugin-react-compiler/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Biome linter plugins for React Compiler rules using GritQL.
@@ -16,23 +16,11 @@ This plugin provides static analysis rules that detect common violations that wo
 
 ## Installation
 
-### From GitHub Packages
-
 ```bash
-# Configure npm to use GitHub Packages for @insik-han scope
-echo "@insik-han:registry=https://npm.pkg.github.com" >> .npmrc
-
 # Install the package
-npm install -D @insik-han/biome-plugin-react-compiler @biomejs/biome
+npm install -D biome-plugin-react-compiler @biomejs/biome
 
 # Initialize the plugin (copies rules and updates biome.json)
-npx biome-plugin-react-compiler init
-```
-
-### From npm (legacy)
-
-```bash
-npm install -D biome-plugin-react-compiler @biomejs/biome
 npx biome-plugin-react-compiler init
 ```
 
@@ -167,7 +155,7 @@ import {
   getRulePath,
   getRuleContent,
   getBiomePluginConfig,
-} from "@insik-han/biome-plugin-react-compiler";
+} from "biome-plugin-react-compiler";
 
 // Get all rule names
 console.log(RULES);
