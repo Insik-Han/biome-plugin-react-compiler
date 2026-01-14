@@ -8,6 +8,7 @@
     "biome-plugin-react-compiler": "./src/cli.js"
   },
   "scripts": {
+    "test": "bun test",
     "lint": "biome lint .",
     "lint:examples": "biome lint ./examples",
     "check": "biome check .",
