@@ -33,7 +33,7 @@ function getRuleContent(ruleName) {
 function getAllRulePaths() {
   return RULES.map((rule) => getRulePath(rule));
 }
-function getBiomePluginConfig(rulesDir = "./biome-plugins") {
+function getBiomePluginConfig(rulesDir = "./node_modules/biome-plugin-react-compiler/rules") {
   return {
     plugins: RULES.map((rule) => `${rulesDir}/${rule}.grit`)
   };

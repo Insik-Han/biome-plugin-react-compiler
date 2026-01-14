@@ -42,7 +42,7 @@ export function getAllRulePaths(): string[] {
   return RULES.map((rule) => getRulePath(rule));
 }
 
-export function getBiomePluginConfig(rulesDir = "./biome-plugins"): { plugins: string[] } {
+export function getBiomePluginConfig(rulesDir = "./node_modules/biome-plugin-react-compiler/rules"): { plugins: string[] } {
   return {
     plugins: RULES.map((rule) => `${rulesDir}/${rule}.grit`),
   };

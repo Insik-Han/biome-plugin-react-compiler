@@ -17,47 +17,34 @@ This plugin provides static analysis rules that detect common violations that wo
 ## Installation
 
 ```bash
-# Install the package
 npm install -D biome-plugin-react-compiler @biomejs/biome
-
-# Initialize the plugin (copies rules and updates biome.json)
-npx biome-plugin-react-compiler init
 ```
 
-### CLI Options
-
-```bash
-# Initialize with custom directory
-npx biome-plugin-react-compiler init --dir ./rules
-
-# Initialize without updating biome.json
-npx biome-plugin-react-compiler init --no-update
-
-# List available rules
-npx biome-plugin-react-compiler list
-```
-
-### Manual Installation
-
-If you prefer manual setup:
-
-1. Copy the `rules/` directory from the package to your project
-2. Add the plugins to your `biome.json`:
+Add plugins to your `biome.json`:
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.0.0/schema.json",
   "plugins": [
-    "./biome-plugins/no-try-catch-in-render.grit",
-    "./biome-plugins/no-ref-access-in-render.grit",
-    "./biome-plugins/no-prop-mutation.grit",
-    "./biome-plugins/no-props-array-push.grit",
-    "./biome-plugins/no-props-array-pop.grit",
-    "./biome-plugins/no-props-array-splice.grit",
-    "./biome-plugins/no-props-array-sort.grit",
-    "./biome-plugins/no-props-array-reverse.grit"
+    "./node_modules/biome-plugin-react-compiler/rules/no-try-catch-in-render.grit",
+    "./node_modules/biome-plugin-react-compiler/rules/no-ref-access-in-render.grit",
+    "./node_modules/biome-plugin-react-compiler/rules/no-prop-mutation.grit",
+    "./node_modules/biome-plugin-react-compiler/rules/no-props-array-push.grit",
+    "./node_modules/biome-plugin-react-compiler/rules/no-props-array-pop.grit",
+    "./node_modules/biome-plugin-react-compiler/rules/no-props-array-splice.grit",
+    "./node_modules/biome-plugin-react-compiler/rules/no-props-array-sort.grit",
+    "./node_modules/biome-plugin-react-compiler/rules/no-props-array-reverse.grit"
   ]
 }
+```
+
+### CLI Helper
+
+```bash
+# Show the plugins config to copy
+npx biome-plugin-react-compiler init
+
+# List available rules
+npx biome-plugin-react-compiler list
 ```
 
 ## Rules
