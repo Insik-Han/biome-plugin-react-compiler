@@ -1,0 +1,6 @@
+`$ref.current` where {
+  register_diagnostic(
+    span = $ref,
+    message = "Avoid accessing ref.current during render. Use effects or event handlers instead."
+  )
+}

@@ -1,0 +1,60 @@
+{
+  "name": "biome-plugin-react-compiler",
+  "version": "0.1.0",
+  "description": "Biome linter plugins for React Compiler rules using GritQL",
+  "type": "module",
+  "main": "./src/index.js",
+  "bin": {
+    "biome-plugin-react-compiler": "./src/cli.js"
+  },
+  "scripts": {
+    "lint": "biome lint .",
+    "lint:examples": "biome lint ./examples",
+    "check": "biome check .",
+    "build": "bun build ./src/cli.ts ./src/index.ts --outdir ./src --target node",
+    "prepublishOnly": "bun run build"
+  },
+  "files": [
+    "rules/*.grit",
+    "src/cli.js",
+    "src/index.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "biome",
+    "linter",
+    "react",
+    "react-compiler",
+    "gritql",
+    "plugin",
+    "eslint",
+    "lint"
+  ],
+  "author": "Insik Han",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Insik-Han/biome-plugin-react-compiler.git"
+  },
+  "homepage": "https://github.com/Insik-Han/biome-plugin-react-compiler#readme",
+  "bugs": {
+    "url": "https://github.com/Insik-Han/biome-plugin-react-compiler/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "peerDependencies": {
+    "@biomejs/biome": ">=2.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.0.0",
+    "@types/bun": "latest",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "react": "^18",
+    "react-dom": "^18",
+    "typescript": "^5"
+  }
+}

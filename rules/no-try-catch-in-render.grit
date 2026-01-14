@@ -1,0 +1,6 @@
+`try { $body } catch ($err) { $handler }` where {
+  register_diagnostic(
+    span = $body,
+    message = "Consider using Error Boundaries instead of try/catch for React component errors"
+  )
+}

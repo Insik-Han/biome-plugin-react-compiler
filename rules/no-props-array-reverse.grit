@@ -1,0 +1,6 @@
+`props.$array.reverse()` where {
+  register_diagnostic(
+    span = $array,
+    message = "Do not mutate props with reverse(). Use [...props.array].reverse() instead."
+  )
+}

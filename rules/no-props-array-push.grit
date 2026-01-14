@@ -1,0 +1,6 @@
+`props.$array.push($value)` where {
+  register_diagnostic(
+    span = $array,
+    message = "Do not mutate props with push(). Use spread operator to create a new array."
+  )
+}

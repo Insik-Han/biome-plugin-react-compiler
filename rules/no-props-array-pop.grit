@@ -1,0 +1,6 @@
+`props.$array.pop()` where {
+  register_diagnostic(
+    span = $array,
+    message = "Do not mutate props with pop(). Create a new array instead."
+  )
+}

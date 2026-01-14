@@ -1,0 +1,6 @@
+`props.$array.splice($args)` where {
+  register_diagnostic(
+    span = $array,
+    message = "Do not mutate props with splice(). Use filter() or slice() instead."
+  )
+}

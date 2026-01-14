@@ -1,0 +1,6 @@
+`props.$prop = $value` where {
+  register_diagnostic(
+    span = $prop,
+    message = "Do not mutate props directly. Props are immutable in React."
+  )
+}

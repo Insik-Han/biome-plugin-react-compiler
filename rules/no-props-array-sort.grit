@@ -1,0 +1,6 @@
+`props.$array.sort()` where {
+  register_diagnostic(
+    span = $array,
+    message = "Do not mutate props with sort(). Use [...props.array].sort() instead."
+  )
+}
