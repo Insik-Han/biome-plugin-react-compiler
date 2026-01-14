@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
 const RULES = [
-  "no-try-catch-in-render.grit",
-  "no-ref-access-in-render.grit",
   "no-prop-mutation.grit",
   "no-props-array-push.grit",
   "no-props-array-pop.grit",

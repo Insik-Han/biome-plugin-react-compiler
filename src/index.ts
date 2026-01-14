@@ -6,8 +6,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export const RULES = [
-  "no-try-catch-in-render",
-  "no-ref-access-in-render",
   "no-prop-mutation",
   "no-props-array-push",
   "no-props-array-pop",

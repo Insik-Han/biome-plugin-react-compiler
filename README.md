@@ -6,13 +6,12 @@
 
 Biome linter plugins for React Compiler rules using GritQL.
 
-This plugin provides static analysis rules that detect common violations that would cause issues with the [React Compiler](https://react.dev/learn/react-compiler).
+This plugin detects **prop mutation** patterns that would cause issues with the [React Compiler](https://react.dev/learn/react-compiler).
 
 ## Requirements
 
 - Biome v2.0.0 or later (GritQL plugin support)
 - Node.js 18+
-- React project
 
 ## Installation
 
@@ -25,8 +24,6 @@ Add plugins to your `biome.json`:
 ```json
 {
   "plugins": [
-    "./node_modules/biome-plugin-react-compiler/rules/no-try-catch-in-render.grit",
-    "./node_modules/biome-plugin-react-compiler/rules/no-ref-access-in-render.grit",
     "./node_modules/biome-plugin-react-compiler/rules/no-prop-mutation.grit",
     "./node_modules/biome-plugin-react-compiler/rules/no-props-array-push.grit",
     "./node_modules/biome-plugin-react-compiler/rules/no-props-array-pop.grit",
@@ -49,50 +46,6 @@ npx biome-plugin-react-compiler list
 
 ## Rules
 
-### no-try-catch-in-render
-
-Detects `try/catch` blocks that may be used to handle JSX rendering errors.
-
-**Why?** React errors in child components cannot be caught by try/catch. Use [Error Boundaries](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary) instead.
-
-```tsx
-// Bad
-function Component() {
-  try {
-    return <ChildComponent />;
-  } catch (error) {
-    return <div>Error</div>;
-  }
-}
-
-// Good
-<ErrorBoundary fallback={<div>Error</div>}>
-  <ChildComponent />
-</ErrorBoundary>
-```
-
-### no-ref-access-in-render (⚠️ High false positive rate)
-
-Detects `ref.current` access. Due to GritQL limitations, this rule cannot distinguish between render-time access and valid access in effects/handlers.
-
-**Why?** Refs are mutable and reading them during render breaks React's rendering model.
-
-**Note:** This rule will flag valid usage in effects and event handlers. Consider removing from your config if too noisy.
-
-```tsx
-// Bad (during render)
-function Component() {
-  const ref = useRef(null);
-  const value = ref.current; // ❌ Flagged
-  return <div>{value}</div>;
-}
-
-// Good (but also flagged due to limitations)
-useEffect(() => {
-  console.log(ref.current); // ⚠️ Also flagged
-}, []);
-```
-
 ### no-prop-mutation
 
 Detects direct assignment to `props` properties.
@@ -100,6 +53,9 @@ Detects direct assignment to `props` properties.
 ```tsx
 // Bad
 props.name = "new name"; // ❌ Flagged
+
+// Good
+const newProps = { ...props, name: "new name" };
 ```
 
 ### no-props-array-push/pop/splice/sort/reverse
@@ -119,46 +75,6 @@ const newItems = [...props.items, "new"];
 const sorted = [...props.items].sort();
 ```
 
-## Usage
-
-Run Biome linter:
-
-```bash
-npx biome lint .
-```
-
-Or check with all Biome features:
-
-```bash
-npx biome check .
-```
-
-## Programmatic API
-
-```typescript
-import {
-  RULES,
-  getRulesDir,
-  getRulePath,
-  getRuleContent,
-  getBiomePluginConfig,
-} from "biome-plugin-react-compiler";
-
-// Get all rule names
-console.log(RULES);
-// ['no-try-catch-in-render', 'no-ref-access-in-render', ...]
-
-// Get path to rules directory
-console.log(getRulesDir());
-
-// Get content of a specific rule
-const content = getRuleContent("no-try-catch-in-render");
-
-// Get biome.json plugin config
-const config = getBiomePluginConfig("./my-rules");
-// { plugins: ['./my-rules/no-try-catch-in-render.grit', ...] }
-```
-
 ## Limitations
 
 These rules use static pattern matching (GritQL) and **cannot** perform deep semantic analysis like the actual React Compiler.
@@ -168,16 +84,9 @@ These rules use static pattern matching (GritQL) and **cannot** perform deep sem
 | Limitation | Impact |
 |------------|--------|
 | No `"use no memo"` support | Cannot exclude opted-out components/hooks |
-| No control flow analysis | Cannot exclude refs in effects/handlers |
-| No scope tracking | Cannot detect nested component definitions |
-| No data flow analysis | Cannot track variable mutations |
-| Basic pattern matching only | Limited to literal `props.X` patterns |
-
-### False Positives
-
-- Components/hooks with `"use no memo"` directive will still be flagged
-- `no-ref-access-in-render` will flag valid usage in effects and event handlers
-- Rules may not detect patterns with variable indirection (e.g., `const p = props; p.x = 1`)
+| No destructuring detection | `{ items }` → `items.push()` not detected |
+| No variable tracking | `const p = props; p.x = 1` not detected |
+| Literal patterns only | Only matches `props.X` directly |
 
 ### Workaround for `"use no memo"`
 
@@ -192,25 +101,14 @@ If you have components that use `"use no memo"`, exclude them via biome.json:
 }
 ```
 
-### Not Implemented
-
-Due to GritQL limitations in Biome, these rules are not implementable:
-
-- **no-nested-components** - Requires scope analysis
-- **no-set-state-in-render** - Requires control flow analysis
-- **exhaustive-deps** - Use Biome's built-in `useExhaustiveDependencies`
-- **purity checks** - Requires semantic analysis
-
 ## Comparison with eslint-plugin-react-compiler
 
 | Feature | This Plugin | eslint-plugin-react-compiler |
 |---------|-------------|------------------------------|
-| Error Boundaries | ✅ Basic detection | ✅ Full analysis |
-| Ref access | ⚠️ High false positives | ✅ Full flow analysis |
-| Prop mutation | ✅ Direct patterns only | ✅ Full flow analysis |
+| Prop mutation (`props.x = y`) | ✅ Direct patterns | ✅ Full flow analysis |
+| Array mutation (`props.arr.push()`) | ✅ Direct patterns | ✅ Full flow analysis |
+| Destructured props | ❌ Not detected | ✅ Full analysis |
 | `"use no memo"` | ❌ Not supported | ✅ Respected |
-| Nested components | ❌ Not possible | ✅ Full analysis |
-| setState in render | ❌ Not possible | ✅ Full analysis |
 | Performance | ✅ Very fast | ⚠️ Runs full compiler |
 
 For complete React Compiler validation, use the official [eslint-plugin-react-compiler](https://www.npmjs.com/package/eslint-plugin-react-compiler).

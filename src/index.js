@@ -5,8 +5,6 @@ import { fileURLToPath } from "node:url";
 var __filename2 = fileURLToPath(import.meta.url);
 var __dirname2 = dirname(__filename2);
 var RULES = [
-  "no-try-catch-in-render",
-  "no-ref-access-in-render",
   "no-prop-mutation",
   "no-props-array-push",
   "no-props-array-pop",

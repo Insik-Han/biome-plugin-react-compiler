@@ -58,43 +58,6 @@ async function runBiomeLint(relativePath: string): Promise<PluginDiagnostic[]> {
   return diagnostics;
 }
 
-describe("no-try-catch-in-render", () => {
-  test("detects try/catch around JSX", async () => {
-    const diagnostics = await runBiomeLint(
-      "tests/fixtures/no-try-catch-in-render/invalid.tsx"
-    );
-    expect(diagnostics.length).toBeGreaterThanOrEqual(1);
-    expect(diagnostics.some((d) => d.message.includes("Error Bound"))).toBe(true);
-  });
-
-  test("does not flag valid code without try/catch around JSX", async () => {
-    const diagnostics = await runBiomeLint(
-      "tests/fixtures/no-try-catch-in-render/valid.tsx"
-    );
-    // Valid file has try/catch in event handler, not around JSX return
-    expect(diagnostics.length).toBe(0);
-  });
-});
-
-describe("no-ref-access-in-render", () => {
-  test("detects ref.current access", async () => {
-    const diagnostics = await runBiomeLint(
-      "tests/fixtures/no-ref-access-in-render/invalid.tsx"
-    );
-    expect(diagnostics.length).toBeGreaterThanOrEqual(1);
-    expect(diagnostics.some((d) => d.message.includes("ref"))).toBe(true);
-  });
-
-  // Note: This rule has known false positives
-  test("flags ref.current even in effects (known limitation)", async () => {
-    const diagnostics = await runBiomeLint(
-      "tests/fixtures/no-ref-access-in-render/valid.tsx"
-    );
-    // Due to GritQL limitations, this will still flag the ref access in useEffect
-    expect(diagnostics.length).toBeGreaterThanOrEqual(1);
-  });
-});
-
 describe("no-prop-mutation", () => {
   test("detects direct prop assignment", async () => {
     const diagnostics = await runBiomeLint(

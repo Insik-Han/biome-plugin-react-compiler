@@ -1,6 +1,6 @@
 {
   "name": "biome-plugin-react-compiler",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Biome linter plugins for React Compiler rules using GritQL",
   "type": "module",
   "main": "./src/index.js",
@@ -51,10 +51,13 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.0.0",
+    "@eslint/js": "^9.39.2",
     "@types/bun": "latest",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "eslint": "^9.39.2",
+    "eslint-plugin-react-compiler": "^19.1.0-rc.2",
     "react": "^18",
     "react-dom": "^18",
     "typescript": "^5"

@@ -1,8 +1,6 @@
 {
   "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
   "plugins": [
-    "./rules/no-try-catch-in-render.grit",
-    "./rules/no-ref-access-in-render.grit",
     "./rules/no-prop-mutation.grit",
     "./rules/no-props-array-push.grit",
     "./rules/no-props-array-pop.grit",
