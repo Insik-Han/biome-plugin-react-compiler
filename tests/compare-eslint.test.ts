@@ -94,7 +94,8 @@ async function runBiome(code: string): Promise<string[]> {
   return messages;
 }
 
-describe("Compare with eslint-plugin-react-compiler", () => {
+// Skip in CI - ESLint startup is slow and these are documentation-only tests
+describe.skipIf(process.env.CI === "true")("Compare with eslint-plugin-react-compiler", () => {
   test("setup temp directory", async () => {
     await setupTempDir();
   });
