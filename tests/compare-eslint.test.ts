@@ -79,11 +79,11 @@ async function runBiome(code: string): Promise<string[]> {
   const lines = output.split("\n");
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    if (line.includes("plugin")) {
+    if (line?.includes("plugin")) {
       // Next line with × contains the message
       for (let j = i + 1; j < lines.length && j < i + 5; j++) {
-        const msgLine = lines[j].trim();
-        if (msgLine.startsWith("×")) {
+        const msgLine = lines[j]?.trim();
+        if (msgLine?.startsWith("×")) {
           messages.push(msgLine.replace(/^×\s*/, ""));
           break;
         }
