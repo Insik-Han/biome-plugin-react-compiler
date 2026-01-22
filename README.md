@@ -4,6 +4,10 @@
 [![CI](https://github.com/Insik-Han/biome-plugin-react-compiler/actions/workflows/ci.yml/badge.svg)](https://github.com/Insik-Han/biome-plugin-react-compiler/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+> **⚠️ Work in Progress**
+>
+> This plugin is still under development and may not work correctly. For production use, please use the official [eslint-plugin-react-compiler](https://www.npmjs.com/package/eslint-plugin-react-compiler) instead.
+
 Biome linter plugins for React Compiler rules using GritQL.
 
 This plugin detects **prop mutation** patterns that would cause issues with the [React Compiler](https://react.dev/learn/react-compiler).
