@@ -1,6 +1,7 @@
 // VALID: Using Error Boundaries for error handling
 
-import React, { Component, ReactNode } from "react";
+import React, { Component } from "react";
+import type { ReactNode } from "react";
 
 interface ErrorBoundaryProps {
   children: ReactNode;
@@ -22,11 +23,11 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     return { hasError: true };
   }
 
-  componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+  override componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     console.error("Error caught:", error, errorInfo);
   }
 
-  render() {
+  override render() {
     if (this.state.hasError) {
       return this.props.fallback;
     }

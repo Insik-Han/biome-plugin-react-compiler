@@ -35,14 +35,15 @@ async function runBiomeLint(relativePath: string): Promise<PluginDiagnostic[]> {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+    if (!line) continue;
     // Match pattern: "path:line:col plugin"
     const match = line.match(/^(.+):(\d+):(\d+)\s+plugin/);
-    if (match) {
+    if (match && match[1] && match[2]) {
       // Next non-empty line after diagnostic header contains the message
       let message = "";
       for (let j = i + 1; j < lines.length; j++) {
-        const msgLine = lines[j].trim();
-        if (msgLine.startsWith("×") || msgLine.startsWith("✖")) {
+        const msgLine = lines[j]?.trim();
+        if (msgLine?.startsWith("×") || msgLine?.startsWith("✖")) {
           message = msgLine.replace(/^[×✖]\s*/, "");
           break;
         }

@@ -9,6 +9,7 @@ function BadRefComponent() {
   const value = inputRef.current?.value;
 
   // BAD: Writing ref.current during render
+  // @ts-expect-error - intentionally showing invalid code
   inputRef.current = document.createElement("input");
 
   return <input ref={inputRef} value={value} />;

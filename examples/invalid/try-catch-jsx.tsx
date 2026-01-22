@@ -3,6 +3,10 @@
 
 import React from "react";
 
+// Dummy declarations for example purposes
+declare function ChildComponent(): React.JSX.Element;
+declare function fetchData(): { name: string };
+
 function BadComponent() {
   try {
     return <ChildComponent />;
